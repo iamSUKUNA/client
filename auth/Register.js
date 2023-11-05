@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import InputBox from '../components/Forms/inputBox';
 import SubmitButton from '../components/Forms/SubmitButton';
-const Register = () => {
+const Register = ({ navigation }) => {
   // STATES
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -56,6 +56,16 @@ const Register = () => {
         loading={loading}
         handleSubmitFunction={handleSubmitFunction}
       />
+      <Text style={styles.alreadyRegisterText1}>
+        Already registered?
+        <Text
+          style={styles.alreadyRegisterText2}
+          onPress={() => navigation.navigate('Login')}
+        >
+          {' '}
+          Login
+        </Text>
+      </Text>
     </View>
   );
 };
@@ -71,6 +81,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1e2225',
     marginBottom: 20,
+  },
+  alreadyRegisterText1: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  alreadyRegisterText2: {
+    color: '#0349fc',
+    fontWeight: '500',
   },
 });
 export default Register;
