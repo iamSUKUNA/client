@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import React, { useState } from 'react';
-import InputBox from '../../components/Forms/inputBox';
-import SubmitButton from '../../components/Forms/SubmitButton';
+import InputBox from '../components/Forms/inputBox';
+import SubmitButton from '../components/Forms/SubmitButton';
 const Register = () => {
   // STATES
   const [name, setName] = useState('');

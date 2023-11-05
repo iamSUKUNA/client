@@ -1,5 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Register from './pages/auth/Register';
+import Register from 'client/auth/Register.js';
 
 export default function App() {
   return <Register />;
