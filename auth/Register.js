@@ -30,7 +30,7 @@ const Register = ({ navigation }) => {
       <View style={{ marginHorizontal: 20 }}>
         <InputBox
           title={'Name'}
-          placeholder={'Enter your Name'}
+          placeholder={'Enter Full Name'}
           value={name}
           setValue={setName}
         />
