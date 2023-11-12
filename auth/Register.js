@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import InputBox from '../components/Forms/inputBox';
@@ -9,7 +10,7 @@ const Register = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   // SUBMIT BUTTON FUNCTION
-  const handleSubmitFunction = () => {
+  const handleSubmitFunction = async () => {
     try {
       setLoading(true);
       if (!name || !email || !password) {
@@ -18,8 +19,14 @@ const Register = ({ navigation }) => {
         return;
       }
       setLoading(false);
+      const { data } = await axios.post(
+        'http://172.20.10.3:8080/api/v1/auth/register',
+        { name, email, password }
+      );
+      alert(data && data.message);
       console.log('Registered Data => ', { name, email, password });
     } catch (error) {
+      alert(error.response.data.messgae);
       setLoading(false);
       console.log(error);
     }
@@ -45,7 +52,7 @@ const Register = ({ navigation }) => {
         <InputBox
           title={'Password'}
           secureText={true}
-          placeholder={'Enter your password'}
+          placeholder={'Password must be in range 8-16'}
           autoComplete={'password'}
           value={password}
           setValue={setPassword}

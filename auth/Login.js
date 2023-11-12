@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import InputBox from '../components/Forms/inputBox';
 import SubmitButton from '../components/Forms/SubmitButton';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
   // STATES
@@ -10,7 +12,7 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   // SUBMIT BUTTON FUNCTION
-  const handleSubmitFunction = () => {
+  const handleSubmitFunction = async () => {
     try {
       setLoading(true);
       if (!email || !password) {
@@ -19,12 +21,26 @@ const Login = ({ navigation }) => {
         return;
       }
       setLoading(false);
+      const { data } = await axios.post(
+        'http://172.20.10.3:8080/api/v1/auth/login',
+        { email, password }
+      );
+      await AsyncStorage.setItem('@auth', JSON.stringify(data));
+      alert(data && data.message);
       console.log('Login Data => ', { email, password });
     } catch (error) {
+      alert(error.response.data.messgae);
       setLoading(false);
       console.log(error);
     }
   };
+
+  // Temp function to check local storage data
+  const getLocalStorageData = async () => {
+    let data = await AsyncStorage.getItem('@auth');
+    console.log('local storage ===>', data);
+  };
+  getLocalStorageData();
   return (
     <View style={styles.contaier}>
       <Text style={styles.pageTitle}>Login</Text>
